@@ -1,5 +1,11 @@
 require 'test_helper'
 
+class MockedTwilioClient
+	def method_missing(*args)
+		self
+	end
+end
+
 class UsersControllerTest < ActionController::TestCase
 
 	test "#new" do
@@ -9,6 +15,7 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "#create succeeds" do
+		mock(Twilio::REST::Client).new('',''){ MockedTwilioClient.new }
 		assert_difference 'User.count' do
 			post :create, user: {name: 'John Doe', email: 'john@doe.com', phone: '555-444-3434'}
 			assert_response :ok
