@@ -1,5 +1,11 @@
 source 'https://rubygems.org'
 
+gem :test do
+	gem 'rr'
+end
+
+gem 'tunnlr_connector', group: :development
+
 gem 'twilio-ruby'
 
 gem 'protected_attributes'
